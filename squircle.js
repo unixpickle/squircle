@@ -3,7 +3,7 @@
 	function Squircle() {
 		this.element = document.getElementById('squircle');
 		this.percentage = 0;
-		this.direction = 1;
+		this.x = 0;
 	};
 
 	Squircle.prototype.draw = function() {
@@ -14,7 +14,7 @@
 		var offset = (size-sideLength) / 2;
 		ctx.clearRect(0, 0, this.element.width, this.element.height);
 		ctx.translate(inset, inset);
-		ctx.fillStyle = '#FFFF00';
+		ctx.fillStyle = '#ffff00';
 		ctx.lineJoin = 'round';
 		ctx.lineWidth = 5;
 		ctx.beginPath();
@@ -44,14 +44,9 @@
 	};
 
 	Squircle.prototype.step = function() {
-		this.percentage += this.direction / 20;
-		if (this.percentage > 1 && this.direction > 0) {
-			this.percentage = 1;
-			this.direction = -1;
-		} else if (this.percentage < 0 && this.direction < 0) {
-			this.percentage = 0;
-			this.direction = 1;
-		}
+		this.x += 0.1;
+		var number = Math.pow(Math.sin(this.x), 2);
+		this.percentage = number;
 		this.draw();
 	};
 
