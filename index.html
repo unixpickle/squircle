@@ -2,11 +2,58 @@
 <html>
 	<head>
 		<title>Squircle</title>
+		<meta name="viewport" content="width=650">
 		<script src="squircle.js"></script>
+		<style type="text/css">
+		#container {
+			position: fixed;
+			width: 600px;
+			height: 600px;
+			left: calc(50% - 300px);
+			top: calc(50% - 300px);
+		}
+
+		#face, #left-eye, #right-eye, #mouth, #nose {
+			position: absolute;
+		}
+
+		#face {
+			left: 0;
+			top: 0;
+		}
+
+		#left-eye {
+			top: 150px;
+			left: 150px;
+		}
+
+		#right-eye {
+			top: 150px;
+			right: 150px;
+		}
+
+		#nose {
+			top: 250px;
+			left: 260px;
+		}
+
+		#mouth {
+			top: 350px;
+			left: 100px;
+			width: 400px;
+			height: 100px;
+		}
+		</style>
 	</head>
 	<body>
 		<center>
-			<canvas id="squircle" width="600" height="600"></canvas>
+			<div id="container">
+				<canvas id="face" width="600" height="600"></canvas>
+				<canvas id="left-eye" width="100" height="100"></canvas>
+				<canvas id="right-eye" width="100" height="100"></canvas>
+				<canvas id="nose" width="80" height="80"></canvas>
+				<canvas id="mouth" width="400" height="400"></canvas>
+			</div>
 		</center>
 	</body>
 </html>

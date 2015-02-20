@@ -1,22 +1,26 @@
 (function() {
 
-	function Squircle() {
-		this.element = document.getElementById('squircle');
+	function Squircle(element, thickness, fill, stroke) {
+		this.element = element;
+		this.thickness = thickness || 5;
+		this.fill = fill || '#ffff00';
+		this.stroke = stroke || 'black';
 		this.percentage = 0;
 		this.x = 0;
 	};
 
 	Squircle.prototype.draw = function() {
-		var inset = 5;
+		var inset = this.thickness;
 		var size = this.element.width - inset*2;
 		var ctx = this.element.getContext('2d');
 		var sideLength = size / Math.sqrt(2);
 		var offset = (size-sideLength) / 2;
 		ctx.clearRect(0, 0, this.element.width, this.element.height);
 		ctx.translate(inset, inset);
-		ctx.fillStyle = '#ffff00';
+		ctx.fillStyle = this.fill;
+		ctx.strokeStyle = this.stroke;
+		ctx.lineWidth = this.thickness;
 		ctx.lineJoin = 'round';
-		ctx.lineWidth = 5;
 		ctx.beginPath();
 		if (this.percentage < 0.01) {
 			ctx.moveTo(offset, offset);
@@ -51,12 +55,19 @@
 	};
 
 	window.addEventListener('load', function() {
-		var squircle = new Squircle();
-		squircle.draw();
+		var squircles = [
+			new Squircle(document.getElementById('face')),
+			new Squircle(document.getElementById('left-eye'), 20, '#00ff00'),
+			new Squircle(document.getElementById('right-eye'), 20, '#00ff00'),
+			new Squircle(document.getElementById('nose'), 3, '#ff0000'),
+			new Squircle(document.getElementById('mouth'), 30, 'black', '#e32153')
+		];
 		var stepFunc;
 		stepFunc = function() {
 			setTimeout(stepFunc, 30);
-			squircle.step();
+			for (var i = 0; i < squircles.length; ++i) {
+				squircles[i].step();
+			}
 		};
 		stepFunc();
 	});
